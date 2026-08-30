@@ -16,6 +16,11 @@ My custom Neovim configuration — fast, single-file-first, and built on top of
 managed with Neovim's built-in `vim.pack` — no external plugin manager
 required.
 
+> [!WARNING]
+> **Work in progress.** This is very much a "works on my machine" situation at
+> the moment — it hasn't been tested with a fresh install yet. Expect rough
+> edges if you try it out.
+
 ## Features
 
 - **Native plugin management** with `vim.pack` and a tracked lockfile
