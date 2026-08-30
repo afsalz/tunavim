@@ -21,6 +21,10 @@ required.
 > the moment — it hasn't been tested with a fresh install yet. Expect rough
 > edges if you try it out.
 
+<p align="center">
+  <img src="demo.gif" alt="TunaVim demo" width="900">
+</p>
+
 ## Features
 
 - **Native plugin management** with `vim.pack` and a tracked lockfile
