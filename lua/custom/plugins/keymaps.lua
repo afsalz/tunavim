@@ -27,9 +27,12 @@ map('n', '<leader>sg', function() Snacks.picker.grep() end, { desc = '[S]earch b
 map({ 'n', 'v' }, '<leader>sw', function() Snacks.picker.grep_word() end, { desc = '[S]earch current [W]ord' })
 
 -- Fuzzy search within the current buffer
-map('n', '<leader>sb', function()
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown { winblend = 10, previewer = false })
-end, { desc = '[S]earch current [B]uffer' })
+map(
+  'n',
+  '<leader>sb',
+  function() require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown { winblend = 10, previewer = false }) end,
+  { desc = '[S]earch current [B]uffer' }
+)
 
 -- LSP menu under <leader>l (<leader>lf format is set in init.lua)
 map('n', '<leader>ld', vim.diagnostic.setloclist, { desc = 'Buffer [D]iagnostics' })

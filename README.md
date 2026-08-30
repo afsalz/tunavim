@@ -1,14 +1,20 @@
-# TunaVim 🐟
+<p align="center">
+  <img src="logo.svg" alt="TunaVim logo" width="220">
+</p>
 
-> Tap into perpetual motion.
+<h1 align="center">TunaVim</h1>
+
+<p align="center"><em>Tap into perpetual motion.</em></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Neovim-0.12%2B-57A143?logo=neovim&logoColor=white" alt="Neovim 0.12+">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
+</p>
 
 My custom Neovim configuration — fast, single-file-first, and built on top of
 [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim). Plugins are
 managed with Neovim's built-in `vim.pack` — no external plugin manager
 required.
-
-![Neovim 0.12+](https://img.shields.io/badge/Neovim-0.12%2B-57A143?logo=neovim&logoColor=white)
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## Features
 
