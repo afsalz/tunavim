@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.svg" alt="TunaVim logo" width="220">
+  <img src="logo-animated.svg" alt="TunaVim logo" width="220">
 </p>
 
 <h1 align="center">TunaVim</h1>
