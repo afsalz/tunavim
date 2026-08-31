@@ -1,4 +1,4 @@
--- Web development: Astro syntax and Tailwind class sorting on save.
+-- Web development: Tailwind class sorting on save.
 
 -- tailwind-sorter has a build step; run it automatically on install/update.
 -- Registered before vim.pack.add so the initial install triggers it.
@@ -14,10 +14,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
   end,
 })
 
-vim.pack.add {
-  'https://github.com/wuelnerdotexe/vim-astro',
-  'https://github.com/laytan/tailwind-sorter.nvim',
-}
+vim.pack.add { 'https://github.com/laytan/tailwind-sorter.nvim' }
 
 -- Compat shim: tailwind-sorter uses nvim-treesitter's removed master-branch API
 -- (parsers.get_parser). Restore it on top of the modern vim.treesitter API.

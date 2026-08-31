@@ -47,8 +47,7 @@ required.
 - **Treesitter** (`main` branch) with automatic parser installation per filetype
 - **Git integration** — [gitsigns](https://github.com/lewis6991/gitsigns.nvim)
   with distinct staged/unstaged gutter signs, hunk actions, and lazygit
-- **Web dev extras** — Astro syntax support and automatic Tailwind class
-  sorting on save
+- **Web dev extras** — automatic Tailwind class sorting on save
 - **Note taking** with [Vimwiki](https://github.com/vimwiki/vimwiki) on
   `<leader>m`
 - **Polished UI** — OneDark Pro theme, bufferline, lualine, alpha dashboard,
@@ -142,7 +141,7 @@ highlights:
     │   ├── keymaps.lua         #   Main keymap definitions
     │   ├── ui.lua              #   Theme, bufferline, lualine, dashboard
     │   ├── explorer.lua        #   Snacks explorer + lazygit
-    │   ├── web.lua             #   Astro + Tailwind sorting
+    │   ├── web.lua             #   Tailwind class sorting
     │   ├── ai.lua              #   Supermaven
     │   ├── terminal.lua        #   Toggleterm
     │   └── wiki.lua            #   Vimwiki
