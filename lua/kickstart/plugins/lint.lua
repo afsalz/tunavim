@@ -6,8 +6,15 @@ local lint = require 'lint'
 lint.linters_by_ft = {
   sh = { 'shellcheck' },
   bash = { 'shellcheck' },
-  go = { 'golangcilint' },
 }
+
+-- golangci-lint: only in projects that actually configure it (it's a heavy
+-- whole-package linter; without a config, gopls diagnostics are enough).
+local golangci_configs = { '.golangci.yml', '.golangci.yaml', '.golangci.toml', '.golangci.json' }
+local function golangci_enabled(bufnr)
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  return vim.bo[bufnr].filetype == 'go' and #vim.fs.find(golangci_configs, { upward = true, path = bufname }) > 0
+end
 
 -- shellcheck: only warnings and up
 lint.linters.shellcheck.args = vim.list_extend({ '--severity', 'warning' }, lint.linters.shellcheck.args or {})
@@ -98,6 +105,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
     -- Skip read-only buffers (e.g. markdown inside LSP hover popups)
     if vim.bo.modifiable then
       lint.try_lint()
+      if golangci_enabled(vim.api.nvim_get_current_buf()) then lint.try_lint 'golangcilint' end
       if eslint_filetypes[vim.bo.filetype] then
         local state = eslint_resolve(vim.api.nvim_get_current_buf())
         if state then lint.try_lint(state.linter) end

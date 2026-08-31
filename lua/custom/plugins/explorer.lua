@@ -30,6 +30,8 @@ end
 require('snacks').setup {
   explorer = { enabled = true },
   lazygit = { enabled = true },
+  -- Indent guides with the current scope highlighted end-to-end (LazyVim-style)
+  indent = { enabled = true },
   picker = {
     enabled = true,
     sources = {

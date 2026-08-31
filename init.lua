@@ -45,9 +45,10 @@ do
   vim.o.splitright = true
   vim.o.splitbelow = true
 
-  -- Show invisible characters
+  -- Show invisible characters (tabs stay blank so indent-blankline's
+  -- │ guides indicate indentation instead of » chevrons, e.g. in Go)
   vim.o.list = true
-  vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+  vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 
   vim.o.inccommand = 'split' -- live preview for :substitute
   vim.o.cursorline = true
@@ -459,8 +460,8 @@ do
 
   vim.pack.add { { src = gh 'saghen/blink.cmp', version = vim.version.range '1.*' } }
   require('blink.cmp').setup {
-    -- <C-y> accept, <C-space> menu/docs, <C-n>/<C-p> select, <C-e> hide
-    keymap = { preset = 'default' },
+    -- <CR> accept, arrows or <C-n>/<C-p> select, <C-space> menu/docs, <C-e> hide
+    keymap = { preset = 'enter' },
 
     appearance = {
       nerd_font_variant = 'mono',
@@ -529,7 +530,6 @@ end
 -- ============================================================
 do
   -- require 'kickstart.plugins.debug' -- DAP; enable when I need step-debugging
-  require 'kickstart.plugins.indent_line'
   require 'kickstart.plugins.lint'
   require 'kickstart.plugins.autopairs'
   require 'kickstart.plugins.gitsigns' -- gitsigns hunk keymaps (<leader>h*)

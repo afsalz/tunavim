@@ -149,7 +149,6 @@ highlights:
         ├── lint.lua            #   nvim-lint + ESLint resolution
         ├── gitsigns.lua        #   Git hunk keymaps
         ├── autopairs.lua
-        ├── indent_line.lua
         └── debug.lua           #   DAP (disabled by default)
 ```
 

@@ -70,6 +70,12 @@ map('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
 map('v', '<', '<gv', { desc = 'Indent left' })
 map('v', '>', '>gv', { desc = 'Indent right' })
 
+-- Undo break-points: start a new undo block at punctuation, so u undoes in
+-- sentence-sized chunks instead of the whole insert session (from LazyVim)
+map('i', ',', ',<c-g>u')
+map('i', '.', '.<c-g>u')
+map('i', ';', ';<c-g>u')
+
 -- Buffer menu (<leader>b)
 map('n', '<leader>bj', '<cmd>BufferLinePick<cr>', { desc = '[J]ump to buffer' })
 map('n', '<leader>bf', function() require('telescope.builtin').buffers() end, { desc = '[F]ind buffer' })
@@ -78,6 +84,17 @@ map('n', '<leader>bn', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next buffer' })
 map('n', '<leader>bh', '<cmd>BufferLineCloseLeft<cr>', { desc = 'Close buffers to the left' })
 map('n', '<leader>bl', '<cmd>BufferLineCloseRight<cr>', { desc = 'Close buffers to the right' })
 map('n', '<leader>bW', '<cmd>noautocmd w<cr>', { desc = 'Save without formatting' })
+
+-- Telescope's git pickers error hard outside a repo; guard with a notification
+local function git_guard(fn)
+  return function()
+    if vim.fs.root(0, '.git') or vim.fs.root(assert(vim.uv.cwd()), '.git') then
+      fn()
+    else
+      vim.notify('Not a git repository', vim.log.levels.WARN)
+    end
+  end
+end
 
 -- Git menu (<leader>g); gitsigns also provides these as <leader>h "hunk" maps
 map('n', '<leader>gg', function() Snacks.lazygit() end, { desc = 'Lazy[g]it' })
@@ -89,6 +106,6 @@ map('n', '<leader>gs', function() require('gitsigns').stage_hunk() end, { desc =
 map('n', '<leader>gr', function() require('gitsigns').reset_hunk() end, { desc = 'Reset hunk' })
 map('n', '<leader>gR', function() require('gitsigns').reset_buffer() end, { desc = 'Reset buffer' })
 map('n', '<leader>gd', function() require('gitsigns').diffthis() end, { desc = 'Diff against index' })
-map('n', '<leader>go', function() require('telescope.builtin').git_status() end, { desc = '[O]pen changed files' })
-map('n', '<leader>gb', function() require('telescope.builtin').git_branches() end, { desc = 'Checkout [b]ranch' })
-map('n', '<leader>gc', function() require('telescope.builtin').git_commits() end, { desc = 'Checkout [c]ommit' })
+map('n', '<leader>go', git_guard(function() require('telescope.builtin').git_status() end), { desc = '[O]pen changed files' })
+map('n', '<leader>gb', git_guard(function() require('telescope.builtin').git_branches() end), { desc = 'Checkout [b]ranch' })
+map('n', '<leader>gc', git_guard(function() require('telescope.builtin').git_commits() end), { desc = 'Checkout [c]ommit' })
