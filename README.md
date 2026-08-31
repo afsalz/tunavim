@@ -128,7 +128,7 @@ highlights:
 | `<S-h>` / `<S-l>` | Previous / next buffer |
 | `<C-\>` | Floating terminal |
 | `<C-hjkl>` | Move between windows |
-| `grd` / `grr` / `grn` / `gra` | LSP definition / references / rename / code action |
+| `gd` / `grr` / `grn` / `gra` | LSP definition / references / rename / code action |
 | `gsa` / `gsd` / `gsr` | Surround add / delete / replace |
 
 ## Structure
