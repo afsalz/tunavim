@@ -7,7 +7,14 @@ vim.cmd.colorscheme 'onedark_dark'
 
 -- [[ Bufferline: buffer tabs along the top ]]
 vim.pack.add { 'https://github.com/akinsho/bufferline.nvim' }
-require('bufferline').setup {}
+require('bufferline').setup {
+  options = { ---@diagnostic disable-line: missing-fields
+    -- Shift the buffer tabs right of the snacks explorer sidebar (as in LazyVim)
+    offsets = {
+      { filetype = 'snacks_layout_box' },
+    },
+  },
+}
 
 vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next buffer' })
 vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev buffer' })

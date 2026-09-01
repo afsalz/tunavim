@@ -4,8 +4,6 @@ vim.pack.add { 'https://github.com/folke/snacks.nvim' }
 -- Track the file open in the main window so the explorer can highlight it.
 local current_file = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
 
--- Explorer root for a buffer: the wiki root for vimwiki files, otherwise the
--- file's git root, otherwise its parent directory.
 local function buf_root(buf)
   buf = buf or 0
   if vim.bo[buf].filetype == 'vimwiki' then
@@ -13,8 +11,26 @@ local function buf_root(buf)
     if ok and type(path) == 'string' and path ~= '' then return vim.fs.normalize(path) end
   end
   local name = vim.api.nvim_buf_get_name(buf)
-  if name == '' then return vim.fs.normalize(assert(vim.uv.cwd())) end
-  return vim.fs.root(name, '.git') or vim.fs.dirname(vim.fs.normalize(name))
+  if name ~= '' then
+    name = vim.fs.normalize(name)
+    local lsp_root
+    for _, client in ipairs(vim.lsp.get_clients { bufnr = buf }) do
+      local roots = {}
+      for _, ws in ipairs(client.config.workspace_folders or {}) do
+        roots[#roots + 1] = vim.uri_to_fname(ws.uri)
+      end
+      roots[#roots + 1] = client.root_dir
+      for _, root in ipairs(roots) do
+        root = root and vim.fs.normalize(root) or nil
+        -- The longest root that is an ancestor of the file wins
+        if root and name:find(root .. '/', 1, true) == 1 and (not lsp_root or #root > #lsp_root) then lsp_root = root end
+      end
+    end
+    if lsp_root then return lsp_root end
+    local git_root = vim.fs.root(name, '.git')
+    if git_root then return git_root end
+  end
+  return vim.fs.normalize(assert(vim.uv.cwd()))
 end
 
 -- Point an open explorer at the given root (no-op if already there).
