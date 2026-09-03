@@ -61,7 +61,17 @@ end
 -- (my main keymaps live in lua/custom/plugins/keymaps.lua)
 -- ============================================================
 do
-  vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+  vim.keymap.set({ 'i', 'n', 's' }, '<Esc>', function()
+    vim.cmd 'nohlsearch'
+    local ok, luasnip = pcall(require, 'luasnip')
+    if ok and not luasnip.session.jump_active then
+      local buf = vim.api.nvim_get_current_buf()
+      while luasnip.session.current_nodes[buf] do
+        luasnip.unlink_current()
+      end
+    end
+    return '<Esc>'
+  end, { expr = true, desc = 'Escape, clear hlsearch, stop snippet' })
 
   vim.diagnostic.config {
     update_in_insert = false,
@@ -457,7 +467,10 @@ end
 -- ============================================================
 do
   vim.pack.add { { src = gh 'L3MON4D3/LuaSnip', version = vim.version.range '2.*' } }
-  require('luasnip').setup {}
+  require('luasnip').setup {
+    region_check_events = 'CursorMoved',
+    delete_check_events = 'TextChanged',
+  }
 
   vim.pack.add { { src = gh 'saghen/blink.cmp', version = vim.version.range '1.*' } }
   require('blink.cmp').setup {
