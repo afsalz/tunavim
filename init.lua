@@ -184,8 +184,8 @@ do
   -- Popup showing pending keybinds
   vim.pack.add { gh 'folke/which-key.nvim' }
   require('which-key').setup {
-    preset = 'helix', -- compact popup on the bottom-right, dynamically sized
-    delay = 0,
+    preset = 'helix',
+    delay = 200,
     icons = { mappings = vim.g.have_nerd_font },
     spec = {
       { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
