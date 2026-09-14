@@ -4,6 +4,8 @@
 -- In-wiki maps (Enter to follow links, etc.) remain enabled.
 vim.g.vimwiki_key_mappings = { global = 0 }
 
+vim.g.vimwiki_global_ext = 0
+
 vim.pack.add { 'https://github.com/vimwiki/vimwiki' }
 
 vim.keymap.set('n', '<leader>mw', '<cmd>VimwikiIndex<cr>', { desc = 'Vimwiki index' })

@@ -414,6 +414,7 @@ do
     'eslint_d',
     'shellcheck',
     'golangci-lint',
+    'templ', -- templ CLI: used by conform for templ fmt
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -446,6 +447,7 @@ do
     },
     formatters_by_ft = {
       lua = { 'stylua' },
+      templ = { 'templ' }, -- templ fmt (Go templ templates)
       javascript = { 'prettier' },
       javascriptreact = { 'prettier' },
       typescript = { 'prettier' },
