@@ -34,6 +34,8 @@ do
   vim.o.breakindent = true
   vim.o.undofile = true
 
+  vim.o.formatoptions = 'jcroqlnt'
+
   -- Case-insensitive search unless the query has capitals
   vim.o.ignorecase = true
   vim.o.smartcase = true
@@ -497,6 +499,16 @@ do
 
     signature = { enabled = true },
   }
+
+  -- blink.cmp turns itself off while a macro is recording or running; keep it on
+  -- for insert-mode macros, everything else still goes through blink's own checks
+  local blink_config = require 'blink.cmp.config'
+  local blink_enabled = blink_config.enabled
+  ---@diagnostic disable-next-line: duplicate-set-field
+  blink_config.enabled = function()
+    if vim.fn.reg_recording() == '' and vim.fn.reg_executing() == '' then return blink_enabled() end
+    return vim.api.nvim_get_mode().mode ~= 'c' and vim.bo.buftype ~= 'prompt' and vim.b.completion ~= false
+  end
 end
 
 -- ============================================================
